@@ -1,0 +1,33 @@
+datasource db {
+  provider = "postgresql"
+  url= env("DATABASE_URL")
+}
+generator client {
+  provider = "prisma-client-js"
+}
+enum Status {
+  APPROVED
+  PENDING
+  REJECTED
+}
+model User{
+  firstName String?
+  lastName String? 
+  telegramId String  @id @unique 
+  phoneNumber String? @unique
+  userName String? @unique 
+  houses House[]
+  isPhone Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+model  House{
+  id Int @id @default(autoincrement())
+  description String @db.VarChar(5000)
+  user  User @relation(fields: [userId], references: [telegramId] ,onDelete: Cascade) 
+  userId String
+  status Status @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

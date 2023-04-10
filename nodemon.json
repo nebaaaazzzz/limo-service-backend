@@ -1,0 +1,9 @@
+{
+  "verbose": false,
+  "ignore": ["*.test.js"],
+  "watch": ["./src"],
+  "ext": "ts",
+  "execMap": {
+    "js": "npx tsc && node"
+  }
+}
