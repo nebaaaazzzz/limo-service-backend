@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const multer_1 = __importDefault(require("./config/multer"));
 const client_1 = require("@prisma/client");
+const blog_schema_1 = __importDefault(require("./schemas/blog.schema"));
+const promises_1 = require("fs/promises");
+const path_1 = __importDefault(require("path"));
 const prisma = new client_1.PrismaClient();
 const { user: User, blog: Blog } = prisma;
 // (async () => {
@@ -21,26 +24,28 @@ const { user: User, blog: Blog } = prisma;
 // })();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-const uploads = multer_1.default.single("file");
-app.post("/post-blog", async function (req, res) {
-    // uploads(req, res, function (err) {
-    //   if (err instanceof MulterError) {
-    //     // A Multer error occurred when uploading.
-    //   } else if (err) {
-    //     // An unknown error occurred when uploading.
-    //   }
-    //   // Everything went fine.
-    // });
-    const blog = await Blog.create({
-        data: {
-            content: "hello world",
-            img: "a",
-            title: "dsa",
-            published: true,
-            authorId: 1,
-        },
-    });
-    return res.send(blog);
+const uploads = multer_1.default.single("img");
+app.post("/post-blog", uploads, async function (req, res) {
+    try {
+        const value = await blog_schema_1.default.validateAsync({
+            ...req.body,
+            img: req.file?.filename,
+        });
+        const blog = await Blog.create({
+            data: {
+                ...value,
+                img: req.file?.filename,
+                authorId: 1,
+            },
+        });
+        return res.send(blog);
+    }
+    catch (err) {
+        if (req.file?.filename) {
+            await (0, promises_1.rm)(path_1.default.join(__dirname, "./uploads/", req.file?.filename));
+        }
+        res.send(err);
+    }
 });
 app.get("/blogs", async (req, res) => {
     const page = Number(req.query?.page) || 1;

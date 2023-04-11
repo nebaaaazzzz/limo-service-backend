@@ -4,25 +4,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const multer_1 = __importDefault(require("multer"));
+const path_1 = __importDefault(require("path"));
 const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "/tmp/my-uploads");
+        cb(null, path_1.default.join(__dirname, "../uploads/"));
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        //TODO : add file extension
-        cb(null, file.fieldname + "-" + uniqueSuffix + file.originalname);
+        cb(null, file.fieldname + "-" + uniqueSuffix + path_1.default.extname(file.originalname));
     },
 });
 function fileFilter(req, file, callback) {
-    // The function should call `cb` with a boolean
-    // to indicate if the file should be accepted
-    // To reject this file pass `false`, like so:
-    callback(null, false);
-    // To accept the file pass `true`, like so:
-    callback(null, true);
-    // You can always pass an error if something goes wrong:
-    callback(new Error("I don't have a clue!"));
+    if (file.mimetype.startsWith("image/")) {
+        return callback(null, true);
+    }
+    else {
+        return callback(null, false);
+    }
 }
 const upload = (0, multer_1.default)({
     storage: storage,
@@ -30,8 +28,7 @@ const upload = (0, multer_1.default)({
     limits: {
         fileSize: 100000000,
         files: 1,
-        parts: 1,
-        fieldSize: 0, //no fields
+        fields: 4,
     },
 });
 exports.default = upload;

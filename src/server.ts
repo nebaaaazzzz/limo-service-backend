@@ -1,7 +1,9 @@
 import express from "express";
 import upload from "./config/multer";
-import { MulterError } from "multer";
 import { PrismaClient } from "@prisma/client";
+import Blogschema from "./schemas/blog.schema";
+import { rm } from "fs/promises";
+import path from "path";
 const prisma = new PrismaClient();
 const { user: User, blog: Blog } = prisma;
 // (async () => {
@@ -18,27 +20,28 @@ const { user: User, blog: Blog } = prisma;
 const app = express();
 app.use(express.json());
 
-const uploads = upload.single("file");
+const uploads = upload.single("img");
 
-app.post("/post-blog", async function (req, res) {
-  // uploads(req, res, function (err) {
-  //   if (err instanceof MulterError) {
-  //     // A Multer error occurred when uploading.
-  //   } else if (err) {
-  //     // An unknown error occurred when uploading.
-  //   }
-  //   // Everything went fine.
-  // });
-  const blog = await Blog.create({
-    data: {
-      content: "hello world",
-      img: "a",
-      title: "dsa",
-      published: true,
-      authorId: 1,
-    },
-  });
-  return res.send(blog);
+app.post("/post-blog", uploads, async function (req, res) {
+  try {
+    const value = await Blogschema.validateAsync({
+      ...req.body,
+      img: req.file?.filename,
+    });
+    const blog = await Blog.create({
+      data: {
+        ...value,
+        img: req.file?.filename,
+        authorId: 1,
+      },
+    });
+    return res.send(blog);
+  } catch (err) {
+    if (req.file?.filename) {
+      await rm(path.join(__dirname, "./uploads/", req.file?.filename));
+    }
+    res.send(err);
+  }
 });
 app.get("/blogs", async (req, res) => {
   const page = Number(req.query?.page) || 1;

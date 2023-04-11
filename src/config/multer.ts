@@ -1,14 +1,17 @@
 import multer from "multer";
 import { FileFilterCallback } from "multer";
 import { Request } from "express";
+import path from "path";
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/tmp/my-uploads");
+    cb(null, path.join(__dirname, "../uploads/"));
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    //TODO : add file extension
-    cb(null, file.fieldname + "-" + uniqueSuffix + file.originalname);
+    cb(
+      null,
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+    );
   },
 });
 
@@ -17,17 +20,11 @@ function fileFilter(
   file: Express.Multer.File,
   callback: FileFilterCallback
 ) {
-  // The function should call `cb` with a boolean
-  // to indicate if the file should be accepted
-
-  // To reject this file pass `false`, like so:
-  callback(null, false);
-
-  // To accept the file pass `true`, like so:
-  callback(null, true);
-
-  // You can always pass an error if something goes wrong:
-  callback(new Error("I don't have a clue!"));
+  if (file.mimetype.startsWith("image/")) {
+    return callback(null, true);
+  } else {
+    return callback(null, false);
+  }
 }
 const upload = multer({
   storage: storage,
@@ -35,8 +32,7 @@ const upload = multer({
   limits: {
     fileSize: 100000000, //100 MB
     files: 1,
-    parts: 1, //file + fields
-    fieldSize: 0, //no fields
+    fields: 4,
   },
 });
 export default upload;
