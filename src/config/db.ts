@@ -1,15 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { Client } from "pg";
 const prisma = new PrismaClient();
-const client = new Client({
-  user: "postgres",
-  host: "127.0.0.1",
-  database: "renthousetelegrambot",
-  password: "example",
-  port: 5433,
-});
+const client = new Client();
 (async () => {
   await client.connect();
 })();
-export { client };
+export const { user: User, blog: Blog } = prisma;
 export default prisma;

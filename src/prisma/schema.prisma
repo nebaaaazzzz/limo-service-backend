@@ -9,7 +9,6 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-
 model User{
   id Int  @id @default(autoincrement())
   firstName String?
@@ -17,8 +16,6 @@ model User{
   phoneNumber String? @unique
   userName String? @unique 
   email String @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   blogs Blog[]
 }
 model Blog {
@@ -29,4 +26,28 @@ model Blog {
   published Boolean @default(false)
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Book {
+  id        Int     @id @default(autoincrement())
+  firstName String
+  lastName String
+  fromAddress String
+  toAddress String
+  phoneNumber Int
+  luggageCount Int
+  journeyDate DateTime
+  description String
+  checked Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Car {
+  id Int @id @default(autoincrement())
+  name String
+  model String
+  description String
+  speed Float
 }
