@@ -1,5 +1,5 @@
 import Joi from "joi";
-const Bookschema = Joi.object({
+const BookPostschema = Joi.object({
   firstName: Joi.string().min(3).max(50).required(),
   lastName: Joi.string().min(3).max(50).required(),
   email: Joi.string().required().email(),
@@ -9,5 +9,15 @@ const Bookschema = Joi.object({
   luggage: Joi.number().greater(-1).required(),
   description: Joi.string(),
 });
+const BookUpdateschema = Joi.object({
+  firstName: Joi.string().min(3).max(50),
+  lastName: Joi.string().min(3).max(50),
+  email: Joi.string().email(),
+  from: Joi.string().min(2),
+  to: Joi.string().min(2),
+  persons: Joi.number().greater(0),
+  luggage: Joi.number().greater(-1),
+  description: Joi.string(),
+});
 
-export default Bookschema;
+export { BookPostschema, BookUpdateschema };

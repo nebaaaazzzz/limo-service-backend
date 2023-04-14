@@ -1,7 +1,21 @@
 import express, { NextFunction, Request, Response } from "express";
-import upload from "./config/multer";
 import path from "path";
-import { getBlog, postBlog } from "./controller/blog.controller";
+import {
+  deleteBlog,
+  getBlogs,
+  postBlog,
+  getBlog,
+  updateBlog,
+} from "./controller/blog.controller";
+import {
+  deleteReservation,
+  getReservations,
+  postReservation,
+  getReservation,
+  updateReservation,
+} from "./controller/book.controller";
+import { MulterError } from "multer";
+import { globalErrorHandler } from "./util/error";
 
 // (async () => {
 //   await prisma.user.create({
@@ -15,21 +29,22 @@ import { getBlog, postBlog } from "./controller/blog.controller";
 //   });
 // })();
 const app = express();
-app.use(express.static(path.join("uploads")));
+app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
-const uploads = upload.single("img");
 
-app.route("blog").post(postBlog).get(getBlog);
-app.post("/book", async (req, res) => {
-  console.log(req.body);
-  res.send("hello");
-});
+app.route("blog").post(postBlog).get(getBlogs);
+app.route("blog/:id").delete(deleteBlog).patch(updateBlog).get(getBlog);
+
+app.route("book").post(postReservation).get(getReservations);
+app
+  .route("book/:id")
+  .delete(deleteReservation)
+  .patch(updateReservation)
+  .get(getReservation);
 
 app.listen(4000, () => {
   console.log("Server started on port 4000");
 });
 
 //global error handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  res.send("");
-});
+app.use(globalErrorHandler);
