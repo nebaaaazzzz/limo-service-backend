@@ -1,4 +1,3 @@
-import { rm } from "fs/promises";
 import { BookPostschema, BookUpdateschema } from "../schemas/book.schema";
 import { NextFunction, Request, Response } from "express";
 import { Book } from "../config/db";
@@ -28,26 +27,26 @@ export const getReservations = catchAsync(
 export const getReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const bookId = Number(req.params.id);
-    const blog = await Book.findUnique({
+    const book = await Book.findUnique({
       where: {
         id: bookId,
       },
     });
-    if (!blog) {
+    if (!book) {
       return res.status(404).send("reservation not found");
     }
-    res.send(blog);
+    res.send(book);
   }
 );
 export const deleteReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const bookId = Number(req.params.id);
-    const blog = await Book.findUnique({
+    const book = await Book.findUnique({
       where: {
         id: bookId,
       },
     });
-    if (!blog) {
+    if (!book) {
       return res.status(404).send("reservation not found");
     }
     await Book.delete({
@@ -55,28 +54,28 @@ export const deleteReservation = catchAsync(
         id: bookId,
       },
     });
-    res.send("Blog deleted");
+    res.send("reservation deleted");
   }
 );
 
 export const updateReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const bookId = Number(req.params.id);
-    const blog = await Book.findUnique({
+    const book = await Book.findUnique({
       where: {
         id: bookId,
       },
     });
-    if (!blog) {
+    if (!book) {
       return res.status(404).send("reservation not found");
     }
     const value = await BookUpdateschema.validateAsync(req.body);
-    const updatedBlog = await Book.update({
+    const updatedBook = await Book.update({
       where: {
         id: bookId,
       },
       data: value,
     });
-    res.send(updatedBlog);
+    res.send(updatedBook);
   }
 );

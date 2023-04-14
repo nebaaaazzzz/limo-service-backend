@@ -50,4 +50,7 @@ model Car {
   model String
   description String
   speed Float
+  pricePerDay  Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

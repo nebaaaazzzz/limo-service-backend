@@ -5,5 +5,5 @@ const client = new Client();
 (async () => {
   await client.connect();
 })();
-export const { user: User, blog: Blog, book: Book } = prisma;
+export const { user: User, blog: Blog, book: Book, car: Car } = prisma;
 export default prisma;

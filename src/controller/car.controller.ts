@@ -1,28 +1,28 @@
 import { rm } from "fs/promises";
-import { BlogPostschema, BlogUpdateschema } from "../schemas/blog.schema";
+import { CarPostschema, CarUpdateschema } from "../schemas/car.schema";
 import { NextFunction, Request, Response } from "express";
 import upload from "../config/multer";
-import { Blog } from "../config/db";
+import { Car } from "../config/db";
 import path from "path";
 import { catchAsync } from "../util/error";
 
 const uploads = upload.single("img");
-export const postBlog = [
+export const postCar = [
   uploads,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const value = await BlogPostschema.validateAsync({
+      const value = await CarPostschema.validateAsync({
         ...req.body,
         img: req.file?.filename,
       });
-      const blog = await Blog.create({
+      const car = await Car.create({
         data: {
           ...value,
           img: req.file?.filename,
           authorId: 1, //FIXME: get the author id from the token
         },
       });
-      return res.send(blog);
+      return res.send(car);
     } catch (err) {
       if (req.file?.filename) {
         //if the validation fails, delete the uploaded file
@@ -32,78 +32,78 @@ export const postBlog = [
     }
   },
 ];
-export const getBlogs = catchAsync(
+export const getCars = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const page = Number(req.query?.page) || 1;
     const PAGE_SIZE = 5;
     const limit = Number(req.query?.limit) || PAGE_SIZE;
-    const results = await Blog.findMany({
+    const results = await Car.findMany({
       skip: (page - 1) * limit,
       take: limit,
     });
     res.send(results);
   }
 );
-export const getBlog = catchAsync(
+export const getCar = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const blogId = Number(req.params.id);
-    const blog = await Blog.findUnique({
+    const carId = Number(req.params.id);
+    const car = await Car.findUnique({
       where: {
-        id: blogId,
+        id: carId,
       },
     });
-    if (!blog) {
-      return res.status(404).send("Blog not found");
+    if (!car) {
+      return res.status(404).send("Car not found");
     }
-    res.send(blog);
+    res.send(car);
   }
 );
 
-export const deleteBlog = catchAsync(
+export const deleteCar = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const blogId = Number(req.params.id);
-    const blog = await Blog.findUnique({
+    const carId = Number(req.params.id);
+    const car = await Car.findUnique({
       where: {
-        id: blogId,
+        id: carId,
       },
     });
-    if (!blog) {
-      return res.status(404).send("Blog not found");
+    if (!car) {
+      return res.status(404).send("Car not found");
     }
-    await Blog.delete({
+    await Car.delete({
       where: {
-        id: blogId,
+        id: carId,
       },
     });
-    res.send("Blog deleted");
+    res.send("car deleted");
   }
 );
 
-export const updateBlog = [
+export const updateCar = [
   uploads,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const blogId = Number(req.params.id);
-      const blog = await Blog.findUnique({
+      const carId = Number(req.params.id);
+      const car = await Car.findUnique({
         where: {
-          id: blogId,
+          id: carId,
         },
       });
-      if (!blog) {
-        return res.status(404).send("Blog not found");
+      if (!car) {
+        return res.status(404).send("Car not found");
       }
       const body = req.body;
       if (req.file) {
         body["img"] = req.file?.filename;
       }
-      const value = await BlogUpdateschema.validateAsync(body);
-      const updatedBlog = await Blog.update({
+      const value = await CarUpdateschema.validateAsync(body);
+      const updatedCar = await Car.update({
         where: {
-          id: blogId,
+          id: carId,
         },
         data: value,
       });
-      res.send(updatedBlog);
+      res.send(updatedCar);
     } catch (err) {
       if (req.file?.filename) {
         //if the validation fails, delete the uploaded file
