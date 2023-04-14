@@ -19,5 +19,6 @@ const CarUpdateschema = Joi.object({
   luggage: Joi.string(),
   description: Joi.string(),
 });
+//FIXME
 
 export { CarPostschema, CarUpdateschema };

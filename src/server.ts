@@ -23,6 +23,7 @@ import {
   postCar,
   updateCar,
 } from "./controller/car.controller";
+import router from "./routes/index.routes";
 
 // (async () => {
 //   await prisma.user.create({
@@ -39,19 +40,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
 
-app.route("blog").post(postBlog).get(getBlogs);
-app.route("blog/:id").delete(deleteBlog).patch(updateBlog).get(getBlog);
-
-app.route("book").post(postReservation).get(getReservations);
-app
-  .route("book/:id")
-  .delete(deleteReservation)
-  .patch(updateReservation)
-  .get(getReservation);
-
-app.route("car").post(postCar).get(getCars);
-app.route("car/:id").delete(deleteCar).patch(updateCar).get(getCar);
-
+app.use(router);
 app.listen(4000, () => {
   console.log("Server started on port 4000");
 });
