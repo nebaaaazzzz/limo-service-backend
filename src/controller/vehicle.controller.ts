@@ -1,5 +1,5 @@
 import { rm } from "fs/promises";
-import { CarPostschema, CarUpdateschema } from "../schemas/car.schema";
+import { CarPostschema, CarUpdateschema } from "../schemas/vehicle.schema";
 import { NextFunction, Request, Response } from "express";
 import upload from "../config/multer";
 import { Car } from "../config/db";

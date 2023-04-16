@@ -44,13 +44,21 @@ model Book {
   updatedAt DateTime @updatedAt
 }
 
-model Car {
+
+enum VehicleType {
+  SUV
+  BUS
+}
+model Vehicle {
   id Int @id @default(autoincrement())
   name String
   model String
+  img      String
   description String
   speed Float
   pricePerDay  Float
+  type VehicleType
+  passengerSize Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
