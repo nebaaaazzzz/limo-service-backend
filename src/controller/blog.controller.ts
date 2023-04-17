@@ -1,5 +1,8 @@
 import { rm } from "fs/promises";
-import { BlogPostschema, BlogUpdateschema } from "../schemas/blog.schema";
+import {
+  BlogPostschema,
+  BlogUpdateschema,
+} from "../validation_schemas/blog.schema";
 import { NextFunction, Request, Response } from "express";
 import upload from "../config/multer";
 import { Blog } from "../config/db";
@@ -19,14 +22,13 @@ export const postBlog = [
         data: {
           ...value,
           img: req.file?.filename,
-          authorId: 1, //FIXME: get the author id from the token
         },
       });
       return res.send(blog);
     } catch (err) {
       if (req.file?.filename) {
         //if the validation fails, delete the uploaded file
-        await rm(path.join(__dirname, "./uploads/", req.file?.filename));
+        await rm(path.join(__dirname, "../uploads/", req.file?.filename));
       }
       next(err);
     }
@@ -107,7 +109,7 @@ export const updateBlog = [
     } catch (err) {
       if (req.file?.filename) {
         //if the validation fails, delete the uploaded file
-        await rm(path.join(__dirname, "./uploads/", req.file?.filename));
+        await rm(path.join(__dirname, "../uploads/", req.file?.filename));
       }
       next(err);
     }

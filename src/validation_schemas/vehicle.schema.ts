@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { PrismaClient } from "@prisma/client";
+import { VehicleType } from "@prisma/client";
 const VehiclePostschema = Joi.object({
   name: Joi.string().min(3).max(50).required(),
   model: Joi.string().min(3).max(50).required(),
@@ -8,7 +8,9 @@ const VehiclePostschema = Joi.object({
   speed: Joi.number().required().min(0),
   passengerSize: Joi.number().required().min(0),
   pricePerDay: Joi.number().required().min(0),
-  // type VehicleType
+  type: Joi.string()
+    .required()
+    .allow(...Object.values(VehicleType)),
 });
 const VehicleUpdateschema = Joi.object({
   name: Joi.string().min(3).max(50),
@@ -18,6 +20,7 @@ const VehicleUpdateschema = Joi.object({
   speed: Joi.number().min(0),
   passengerSize: Joi.number().min(0),
   pricePerDay: Joi.number().min(0),
+  type: Joi.string().allow(...Object.values(VehicleType)),
 });
 
 export { VehiclePostschema, VehicleUpdateschema };

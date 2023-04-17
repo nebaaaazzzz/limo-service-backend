@@ -3,8 +3,9 @@ import path from "path";
 import router from "./routes/index.routes";
 import { globalErrorHandler } from "./util/error";
 import rateLimit from "express-rate-limit";
+import { User } from "./config/db";
 // (async () => {
-//   await prisma.user.create({
+//   await User.create({
 //     data: {
 //       email: "neba@gmail.com",
 //       lastName: "Daniel",
@@ -29,6 +30,7 @@ app.use(globalErrorHandler);
 process.on("unhandledRejection", (err: Error) => {
   console.log(err.name, err.message);
   console.log("UNHANDLED REJECTION! 💥 Shutting down...");
+  process.exit(1);
   // app.close(() => {
   //   process.exit(1);
   // }
@@ -38,6 +40,7 @@ process.on("unhandledRejection", (err: Error) => {
 process.on("uncaughtException", (err: Error) => {
   console.log(err.name, err.message);
   console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
+  process.exit(1);
   // app.close(() => {
   //   process.exit(1);
 

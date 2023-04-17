@@ -1,4 +1,7 @@
-import { BookPostschema, BookUpdateschema } from "../schemas/book.schema";
+import {
+  BookPostschema,
+  BookUpdateschema,
+} from "../validation_schemas/book.schema";
 import { NextFunction, Request, Response } from "express";
 import { Book } from "../config/db";
 import { catchAsync } from "../util/error";
