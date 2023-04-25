@@ -1,9 +1,13 @@
-import jwt from "jsonwebtoken";
+import jwt, {
+  JsonWebTokenError,
+  NotBeforeError,
+  TokenExpiredError,
+} from "jsonwebtoken";
 export async function generateToken(user: User) {
   return jwt.sign(
     {
       sub: user.id,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      exp: Math.floor(Date.now() / 1000) + 6000000 * 60,
     },
     "secret"
   );

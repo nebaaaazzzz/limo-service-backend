@@ -24,7 +24,7 @@ model Blog {
   title     String
   img      String
   content   String
-  published Boolean @default(false)
+  // published Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -32,6 +32,13 @@ model Blog {
 enum VehicleType {
   SUV
   BUS
+  VAN
+  SEDAN
+}
+enum ReservationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 model Vehicle {
   id Int @id @default(autoincrement())
@@ -59,7 +66,7 @@ model Book {
   personCount String
   journeyDate DateTime
   description String
-  checked Boolean @default(false)
+  status ReservationStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   vehicle    Vehicle    @relation(fields: [vehicleId], references: [id])

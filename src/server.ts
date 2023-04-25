@@ -24,7 +24,12 @@ import { verifyToken } from "./util/token";
 const app = express();
 app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:5173",
+  })
+);
 app.use(cookieParser());
 app.use(passport.initialize({}));
 app.get("/test", async (req: Request, res: Response) => {

@@ -37,11 +37,14 @@ export const postBlog = [
 export const getBlogs = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const page = Number(req.query?.page) || 1;
-    const PAGE_SIZE = 5;
+    const PAGE_SIZE = 6;
     const limit = Number(req.query?.limit) || PAGE_SIZE;
     const results = await Blog.findMany({
       skip: (page - 1) * limit,
       take: limit,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     res.send(results);
   }
@@ -73,6 +76,7 @@ export const deleteBlog = catchAsync(
       return res.status(404).send("Blog not found");
     }
     await Blog.delete({
+      //TODO delete file
       where: {
         id: blogId,
       },

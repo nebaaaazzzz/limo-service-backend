@@ -9,15 +9,16 @@ router.post(
   }),
   async function (req, res) {
     const token = await generateToken(req.user as User);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-    });
-    res.send({
-      data: {
-        message: "succeeessfuly loggedIn",
-      },
-    });
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: false,
+      })
+      .send({
+        data: {
+          message: "succeeessfuly loggedIn",
+        },
+      });
   }
 );
 

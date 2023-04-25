@@ -4,6 +4,6 @@
   "watch": ["./src"],
   "ext": "ts",
   "execMap": {
-    "js": "npx tsc && node"
+    "js": "swc ./src -d build && node"
   }
 }
