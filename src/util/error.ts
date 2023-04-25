@@ -17,7 +17,7 @@ export const globalErrorHandler = (
 ) => {
   /** errors related to JWT */
   if (err instanceof JsonWebTokenError) {
-    /* 
+    /*
       'invalid token' - the header or payload could not be parsed
       'jwt malformed' - the token does not have three components (delimited by a .)
       'jwt signature is required'
@@ -27,29 +27,27 @@ export const globalErrorHandler = (
       'jwt id invalid. expected: [OPTIONS JWT ID]'
       'jwt subject invalid. expected: [OPTIONS SUBJECT]'
     */
-    res.status(401).send({
+    return res.status(401).send({
       success: false,
       message: err.message,
     });
   }
   if (err instanceof TokenExpiredError) {
-    res.status(401).send({
+    return res.status(401).send({
       success: false,
       message: err.message,
     });
   }
-
   if (err instanceof NotBeforeError) {
     // Thrown if current time is before the nbf claim.
-    res.status(401).send({
+    return res.status(401).send({
       success: false,
       message: err.message,
     });
   }
-
   if (err instanceof Error) {
-    res.status(500).send(err.message);
+    return res.status(500).send(err.message);
   } else {
-    res.status(500).send("Something went wrong");
+    return res.status(500).send("Something went wrong");
   }
 };

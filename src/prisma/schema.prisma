@@ -62,8 +62,8 @@ model Book {
   toAddress String
   email String
   phoneNumber String
-  luggageCount String
-  personCount String
+  luggageCount Int
+  personCount Int
   journeyDate DateTime
   description String
   status ReservationStatus @default(PENDING)

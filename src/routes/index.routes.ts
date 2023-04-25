@@ -29,7 +29,7 @@ router.get(
         phoneNumber: true,
       },
     });
-    res.json(user);
+    return res.json(user);
   })
 );
 export default router;
