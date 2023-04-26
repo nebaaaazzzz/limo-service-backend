@@ -8,6 +8,7 @@ import upload from "../config/multer";
 import { Vehicle } from "../config/db";
 import path from "path";
 import { catchAsync } from "../util/error";
+import CustomError from "../util/CustomeError";
 
 const uploads = upload.single("img");
 export const postVehicle = [
@@ -58,7 +59,7 @@ export const getVehicle = catchAsync(
       },
     });
     if (!car) {
-      return res.status(404).send("Vehicle not found");
+      return next(new CustomError("Vehicle not found", 404));
     }
     res.send(car);
   }
@@ -73,7 +74,7 @@ export const deleteVehicle = catchAsync(
       },
     });
     if (!car) {
-      return res.status(404).send("Vehicle not found");
+      return next(new CustomError("Vehicle not found", 404));
     }
     await Vehicle.delete({
       where: {
@@ -95,7 +96,7 @@ export const updateVehicle = [
         },
       });
       if (!car) {
-        return res.status(404).send("Vehicle not found");
+        return next(new CustomError("Vehicle not found", 404));
       }
       const body = req.body;
       if (req.file) {

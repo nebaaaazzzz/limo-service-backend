@@ -6,7 +6,13 @@ import {
   postBlog,
   updateBlog,
 } from "../controller/blog.controller";
+import { catchAsync } from "../util/error";
+import { isAuth } from "../util/auth";
 const router = Router();
-router.route("/").post(postBlog).get(getBlogs);
-router.route("/:id").delete(deleteBlog).patch(updateBlog).get(getBlog);
+router.route("/").post(catchAsync(isAuth), postBlog).get(getBlogs);
+router
+  .route("/:id")
+  .delete(catchAsync(isAuth), deleteBlog)
+  .patch(catchAsync(isAuth), updateBlog)
+  .get(getBlog);
 export default router;

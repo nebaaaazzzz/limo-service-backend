@@ -5,6 +5,7 @@ import {
 import { NextFunction, Request, Response } from "express";
 import { Book } from "../config/db";
 import { catchAsync } from "../util/error";
+import CustomError from "../util/CustomeError";
 
 export const postReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -18,7 +19,7 @@ export const postReservation = catchAsync(
 export const getReservations = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const page = Number(req.query?.page) || 1;
-    const PAGE_SIZE = 6;
+    const PAGE_SIZE = 10;
     const limit = Number(req.query?.limit) || PAGE_SIZE;
     const results = await Book.findMany({
       skip: (page - 1) * limit,
@@ -37,9 +38,12 @@ export const getReservation = catchAsync(
       where: {
         id: bookId,
       },
+      include: {
+        vehicle: true,
+      },
     });
     if (!book) {
-      return res.status(404).send("reservation not found");
+      return next(new CustomError("reservation not found", 404));
     }
     res.send(book);
   }
@@ -53,7 +57,7 @@ export const deleteReservation = catchAsync(
       },
     });
     if (!book) {
-      return res.status(404).send("reservation not found");
+      return next(new CustomError("reservation not found", 404));
     }
     await Book.delete({
       where: {
@@ -73,7 +77,7 @@ export const updateReservation = catchAsync(
       },
     });
     if (!book) {
-      return res.status(404).send("reservation not found");
+      return next(new CustomError("reservation not found", 404));
     }
     const value = await BookUpdateschema.validateAsync(req.body);
     const updatedBook = await Book.update({

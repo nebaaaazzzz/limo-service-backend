@@ -6,8 +6,14 @@ import {
   postVehicle,
   updateVehicle,
 } from "../controller/vehicle.controller";
+import { catchAsync } from "../util/error";
+import { isAuth } from "../util/auth";
 const router = Router();
 router.route("/").post(postVehicle).get(getVehicles);
-router.route("/:id").delete(deleteVehicle).patch(updateVehicle).get(getVehicle);
+router
+  .route("/:id")
+  .delete(catchAsync(isAuth), deleteVehicle)
+  .patch(catchAsync(isAuth), catchAsync(isAuth), updateVehicle)
+  .get(getVehicle);
 
 export default router;

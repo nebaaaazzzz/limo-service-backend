@@ -32,10 +32,6 @@ app.use(
 );
 app.use(cookieParser());
 app.use(passport.initialize({}));
-app.get("/test", async (req: Request, res: Response) => {
-  console.log(verifyToken(req.cookies.token));
-  res.send("success");
-});
 app.use(router);
 app.use(rateLimit());
 app.listen(4000, () => {

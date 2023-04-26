@@ -13,6 +13,8 @@ router.post(
       .cookie("token", token, {
         httpOnly: true,
         secure: false,
+        sameSite: "lax",
+        maxAge: 1000 * 60 * 60 * 24 * 7,
       })
       .send({
         data: {
@@ -21,5 +23,18 @@ router.post(
       });
   }
 );
+router.post("/logout", async function (req, res) {
+  return res
+    .clearCookie("token", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    })
+    .send({
+      data: {
+        message: "succeeessfuly loggedIn",
+      },
+    });
+});
 
 export default router;

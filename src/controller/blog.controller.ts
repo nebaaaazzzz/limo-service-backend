@@ -8,6 +8,7 @@ import upload from "../config/multer";
 import { Blog } from "../config/db";
 import path from "path";
 import { catchAsync } from "../util/error";
+import CustomError from "../util/CustomeError";
 
 const uploads = upload.single("img");
 export const postBlog = [
@@ -58,7 +59,7 @@ export const getBlog = catchAsync(
       },
     });
     if (!blog) {
-      return res.status(404).send("Blog not found");
+      return next(new CustomError("blog not found", 404));
     }
     res.send(blog);
   }
@@ -73,7 +74,7 @@ export const deleteBlog = catchAsync(
       },
     });
     if (!blog) {
-      return res.status(404).send("Blog not found");
+      return next(new CustomError("blog not found", 404));
     }
     await Blog.delete({
       //TODO delete file
@@ -96,7 +97,7 @@ export const updateBlog = [
         },
       });
       if (!blog) {
-        return res.status(404).send("Blog not found");
+        return next(new CustomError("blog not found", 404));
       }
       const body = req.body;
       if (req.file) {

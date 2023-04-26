@@ -4,6 +4,7 @@ import {
   NotBeforeError,
   TokenExpiredError,
 } from "jsonwebtoken";
+import CustomError from "./CustomeError";
 export const catchAsync = (fn: Function) => {
   return (req: Request, res: Response, next: NextFunction) => {
     fn(req, res, next).catch(next);
@@ -41,6 +42,12 @@ export const globalErrorHandler = (
   if (err instanceof NotBeforeError) {
     // Thrown if current time is before the nbf claim.
     return res.status(401).send({
+      success: false,
+      message: err.message,
+    });
+  }
+  if (err instanceof CustomError) {
+    return res.status(err.statusCode).send({
       success: false,
       message: err.message,
     });

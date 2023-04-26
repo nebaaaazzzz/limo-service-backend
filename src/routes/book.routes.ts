@@ -6,11 +6,16 @@ import {
   postReservation,
   updateReservation,
 } from "../controller/book.controller";
+import { catchAsync } from "../util/error";
+import { isAuth } from "../util/auth";
 const router = Router();
-router.route("/").post(postReservation).get(getReservations);
+router
+  .route("/")
+  .post(postReservation)
+  .get(catchAsync(isAuth), getReservations);
 router
   .route("/:id")
-  .delete(deleteReservation)
-  .patch(updateReservation)
-  .get(getReservation);
+  .delete(catchAsync(isAuth), deleteReservation)
+  .patch(catchAsync(isAuth), updateReservation)
+  .get(catchAsync(isAuth), getReservation);
 export default router;

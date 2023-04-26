@@ -19,6 +19,7 @@ const BookUpdateschema = Joi.object({
   fromAddress: Joi.string().min(2),
   toAddress: Joi.string().min(2),
   email: Joi.string().email(),
+  status: Joi.string().allow(...["PENDING", "COMPLETED", "REJECTED"]),
   phoneNumber: Joi.string().min(8).max(10),
   luggageCount: Joi.number().min(0).integer(),
   personCount: Joi.number().min(0).integer(),
