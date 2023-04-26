@@ -9,7 +9,7 @@ import {
 import { catchAsync } from "../util/error";
 import { isAuth } from "../util/auth";
 const router = Router();
-router.route("/").post(postVehicle).get(getVehicles);
+router.route("/").post(catchAsync(isAuth),postVehicle).get(getVehicles);
 router
   .route("/:id")
   .delete(catchAsync(isAuth), deleteVehicle)

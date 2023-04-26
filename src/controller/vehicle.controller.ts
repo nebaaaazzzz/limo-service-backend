@@ -17,6 +17,7 @@ export const postVehicle = [
     try {
       const value = await VehiclePostschema.validateAsync({
         ...req.body,
+        userId: req.user?.id,
         img: req.file?.filename,
       });
       const car = await Vehicle.create({
@@ -43,6 +44,9 @@ export const getVehicles = catchAsync(
     const results = await Vehicle.findMany({
       skip: (page - 1) * limit,
       take: limit,
+      include :{
+        user : true
+      },
       orderBy: {
         createdAt: "desc",
       },

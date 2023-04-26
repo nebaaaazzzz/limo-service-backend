@@ -21,6 +21,7 @@ export const postBlog = [
       });
       const blog = await Blog.create({
         data: {
+          userId: req.user?.id,
           ...value,
           img: req.file?.filename,
         },
@@ -43,6 +44,9 @@ export const getBlogs = catchAsync(
     const results = await Blog.findMany({
       skip: (page - 1) * limit,
       take: limit,
+      include: {
+        user: true,
+      },
       orderBy: {
         createdAt: "desc",
       },
@@ -54,6 +58,9 @@ export const getBlog = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const blogId = Number(req.params.id);
     const blog = await Blog.findUnique({
+      include: {
+        user: true,
+      },
       where: {
         id: blogId,
       },
