@@ -51,6 +51,9 @@ model Vehicle {
   img      String
   description String
   speed Float
+  automatic Int @default(1)
+  heatedSeat  Int @default(1)
+  gpsNavigation Int @default(1)
   pricePerDay  Float
   type VehicleType
   passengerSize Int
