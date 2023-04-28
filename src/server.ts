@@ -17,7 +17,8 @@ const PORT = process.env.PORT || 3030;
       email: "neba@gmail.com",
       lastName: "Daniel",
       firstName: "Nebiyu",
-      password: "123456",
+      // password: "123456",
+      password: "$2a$10$Bl4Y5US/Gh2bOn6GchivH.GUjKcbEp.h9q8gHaEenpoJ1GMDgLlmi",
     },
   });
 })();
@@ -35,7 +36,7 @@ app.use(passport.initialize({}));
 app.use(router);
 app.use(rateLimit());
 app.listen(PORT, () => {
-  console.log("Server started on port 4000");
+  console.log("Server started on port " + PORT);
 });
 passportLocal(passport);
 //global error handler
