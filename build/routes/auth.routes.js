@@ -24,7 +24,8 @@ router.post("/login", _passport.default.authenticate("local", {
     return res.cookie("token", token, {
         httpOnly: true,
         secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        sameSite: "none"
     }).send({
         data: {
             message: "succeeessfuly loggedIn"
