@@ -39,7 +39,7 @@ app.use(_express.default.json());
 app.use((0, _cors.default)({
     credentials: true,
     origin: [
-        "http://localhost:5173",
+        "https://limo-service-admin-react.vercel.app",
         "http://localhost:3000"
     ]
 }));
