@@ -23,7 +23,7 @@ router.post("/login", _passport.default.authenticate("local", {
     const token = await (0, _token.generateToken)(req.user);
     return res.cookie("token", token, {
         httpOnly: true,
-        secure: false,
+        secure: true,
         maxAge: 1000 * 60 * 60 * 24 * 7,
         sameSite: "none"
     }).send({
@@ -35,7 +35,7 @@ router.post("/login", _passport.default.authenticate("local", {
 router.post("/logout", async function(req, res) {
     return res.clearCookie("token", {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: "none"
     }).send({
         data: {
