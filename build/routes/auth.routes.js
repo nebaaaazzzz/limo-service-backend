@@ -34,7 +34,8 @@ router.post("/login", _passport.default.authenticate("local", {
 router.post("/logout", async function(req, res) {
     return res.clearCookie("token", {
         httpOnly: true,
-        secure: false
+        secure: false,
+        sameSite: "none"
     }).send({
         data: {
             message: "succeeessfuly loggedIn"

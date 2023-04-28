@@ -27,6 +27,7 @@ router.post("/logout", async function (req, res) {
     .clearCookie("token", {
       httpOnly: true,
       secure: false,
+      sameSite: "none",
     })
     .send({
       data: {
