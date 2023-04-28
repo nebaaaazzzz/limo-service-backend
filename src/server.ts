@@ -9,6 +9,8 @@ import { User } from "./config/db";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import { verifyToken } from "./util/token";
+const PORT = process.env.PORT || 3030;
+
 (async () => {
   await User.create({
     data: {
@@ -32,7 +34,7 @@ app.use(cookieParser());
 app.use(passport.initialize({}));
 app.use(router);
 app.use(rateLimit());
-app.listen(4000, () => {
+app.listen(PORT, () => {
   console.log("Server started on port 4000");
 });
 passportLocal(passport);
