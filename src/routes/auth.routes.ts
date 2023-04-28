@@ -13,7 +13,6 @@ router.post(
       .cookie("token", token, {
         httpOnly: true,
         secure: false,
-        sameSite: "lax",
         maxAge: 1000 * 60 * 60 * 24 * 7,
       })
       .send({
@@ -28,7 +27,6 @@ router.post("/logout", async function (req, res) {
     .clearCookie("token", {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
     })
     .send({
       data: {
