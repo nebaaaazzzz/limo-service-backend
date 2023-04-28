@@ -40,7 +40,7 @@ app.use((0, _cors.default)({
     credentials: true,
     origin: [
         "https://limo-service-admin-react.vercel.app",
-        "http://localhost:3000"
+        "https://limo-services.vercel.app"
     ]
 }));
 app.use((0, _cookieparser.default)());

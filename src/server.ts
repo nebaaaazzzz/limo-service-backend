@@ -35,7 +35,7 @@ app.use(
     credentials: true,
     origin: [
       "https://limo-service-admin-react.vercel.app",
-      "http://localhost:3000",
+      "https://limo-services.vercel.app",
     ],
   })
 );
