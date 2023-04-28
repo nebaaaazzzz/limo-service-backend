@@ -33,7 +33,7 @@ function _interop_require_default(obj) {
       email: "neba@gmail.com",
       lastName: "Daniel",
       firstName: "Nebiyu",
-      password: "123456",
+      password: "$2a$10$/EWAVkYrFEnQGo9oIGeyqeg.BcD/Ybtv2SIMuVDfhzHLCtaKcRjnS",
     },
   });
 })();
