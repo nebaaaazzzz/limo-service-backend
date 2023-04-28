@@ -21,14 +21,11 @@ _export(exports, {
     Vehicle: function() {
         return Vehicle;
     },
-    Comment: function() {
-        return Comment;
-    },
     default: function() {
         return _default;
     }
 });
 const _client = require("@prisma/client");
 const prisma = new _client.PrismaClient();
-const { user: User , blog: Blog , book: Book , vehicle: Vehicle , comment: Comment  } = prisma;
+const { user: User , blog: Blog , book: Book , vehicle: Vehicle  } = prisma;
 const _default = prisma;

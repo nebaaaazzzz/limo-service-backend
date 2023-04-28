@@ -9,18 +9,16 @@ import { User } from "./config/db";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import { verifyToken } from "./util/token";
-// (async () => {
-//   await User.create({
-//     data: {
-//       email: "neba@gmail.com",
-//       lastName: "Daniel",
-//       firstName: "Nebiyu",
-//       password: "123456",
-//       userName: "nebaz",
-//       phoneNumber: "+251923989471",
-//     },
-//   });
-// })();
+(async () => {
+  await User.create({
+    data: {
+      email: "neba@gmail.com",
+      lastName: "Daniel",
+      firstName: "Nebiyu",
+      password: "123456",
+    },
+  });
+})();
 const app = express();
 app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.json());

@@ -15,6 +15,7 @@ const _cors = /*#__PURE__*/ _interop_require_default(require("cors"));
 const _passportlocal = /*#__PURE__*/ _interop_require_default(
   require("./config/passport-local")
 );
+const _db = require("./config/db");
 const _cookieparser = /*#__PURE__*/ _interop_require_default(
   require("cookie-parser")
 );
@@ -27,13 +28,12 @@ function _interop_require_default(obj) {
       };
 }
 (async () => {
-  await User.create({
+  await _db.User.create({
     data: {
       email: "neba@gmail.com",
       lastName: "Daniel",
       firstName: "Nebiyu",
-      //   password: "123456",
-      password: "$2a$10$ZDGuqVlr.rvc1byX5gW9L.IVaZ4VnCXMs1UEQe2uZYi.5hbibWW/m",
+      password: "123456",
     },
   });
 })();
@@ -51,7 +51,7 @@ app.use(_passport.default.initialize({}));
 app.use(_indexroutes.default);
 app.use((0, _expressratelimit.default)());
 app.listen(80, () => {
-  console.log("Server started on port 80");
+  console.log("Server started on port 4000");
 });
 (0, _passportlocal.default)(_passport.default);
 //global error handler
