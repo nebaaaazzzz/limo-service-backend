@@ -9,7 +9,7 @@ const BookPostschema = Joi.object({
   luggageCount: Joi.number().required().min(0).integer(),
   personCount: Joi.number().required().min(0).integer(),
   journeyDate: Joi.date().required(),
-  description: Joi.string().required(),
+  description: Joi.string().required().max(1000),
   vehicleId: Joi.number().required(),
 });
 
@@ -24,7 +24,7 @@ const BookUpdateschema = Joi.object({
   luggageCount: Joi.number().min(0).integer(),
   personCount: Joi.number().min(0).integer(),
   journeyDate: Joi.date(),
-  description: Joi.string(),
+  description: Joi.string().required().max(1000),
   vehicleId: Joi.number(),
 });
 
