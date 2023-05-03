@@ -8,6 +8,6 @@
 
 `npx primsa migrate dev`
 
-## Create upload folder in build folder
+## Create uploads folder in build folder
 
 `npm run dev` to start dev server locally
