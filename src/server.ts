@@ -5,20 +5,9 @@ import { globalErrorHandler } from "./util/error";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
 import passportLocal from "./config/passport-local";
-import { User } from "./config/db";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-// (async () => {
-//   await User.create({
-//     data: {
-//       email: "neba@gmail.com",
-//       lastName: "Daniel",
-//       firstName: "Nebiyu",
-//       password: "$2a$10$EZq8FjlPlFQJtctyPFfOfuYBRf1SAb57C/Kj1AzKUrgFfpSpzAQSG",
-//       // password: "123456",
-//     },
-//   });
-// })();
+
 const app = express();
 app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
