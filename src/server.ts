@@ -8,16 +8,14 @@ import passportLocal from "./config/passport-local";
 import { User } from "./config/db";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import { verifyToken } from "./util/token";
 // (async () => {
 //   await User.create({
 //     data: {
 //       email: "neba@gmail.com",
 //       lastName: "Daniel",
 //       firstName: "Nebiyu",
-//       password: "123456",
-//       userName: "nebaz",
-//       phoneNumber: "+251923989471",
+//       password: "$2a$10$EZq8FjlPlFQJtctyPFfOfuYBRf1SAb57C/Kj1AzKUrgFfpSpzAQSG",
+//       // password: "123456",
 //     },
 //   });
 // })();

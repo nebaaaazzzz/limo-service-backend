@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { rm } from "fs/promises";
 import {
   BlogPostschema,

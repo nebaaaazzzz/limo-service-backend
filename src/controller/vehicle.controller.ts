@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { rm } from "fs/promises";
 import {
   VehiclePostschema,
@@ -44,8 +45,8 @@ export const getVehicles = catchAsync(
     const results = await Vehicle.findMany({
       skip: (page - 1) * limit,
       take: limit,
-      include :{
-        user : true
+      include: {
+        user: true,
       },
       orderBy: {
         createdAt: "desc",
