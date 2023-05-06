@@ -31,13 +31,7 @@ function _interop_require_default(obj) {
 const app = (0, _express.default)();
 app.use(_express.default.static(_path.default.join(__dirname, "uploads")));
 app.use(_express.default.json());
-app.use((0, _cors.default)({
-    credentials: true,
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:3000"
-    ]
-}));
+app.use((0, _cors.default)());
 app.use((0, _cookieparser.default)());
 app.use(_passport.default.initialize({}));
 app.use(_indexroutes.default);

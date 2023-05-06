@@ -10,6 +10,7 @@ import passport from "passport";
 
 //import { User } from "./config/db";
 
+
 // (async () => {
 //   await User.create({
 //     data: {
@@ -22,16 +23,12 @@ import passport from "passport";
 //   });
 // })();
 
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
-app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:5173", "http://localhost:3000"],
-  })
-);
+app.use(cors());
 app.use(cookieParser());
 app.use(passport.initialize({}));
 app.use(router);
