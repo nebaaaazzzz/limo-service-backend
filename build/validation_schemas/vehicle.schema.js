@@ -27,12 +27,13 @@ const VehiclePostschema = _joi.default.object({
     name: _joi.default.string().min(3).max(50).required(),
     model: _joi.default.string().min(3).max(50).required(),
     img: _joi.default.string().required(),
-    description: _joi.default.string().required(),
+    description: _joi.default.string().max(20000).required(),
     automatic: _joi.default.number().required(),
     heatedSeat: _joi.default.number().required(),
     gpsNavigation: _joi.default.number().required(),
     speed: _joi.default.number().required().min(0),
     passengerSize: _joi.default.number().required().min(0),
+    userId: _joi.default.number().required(),
     pricePerDay: _joi.default.number().required().min(0),
     type: _joi.default.string().required().allow(...Object.values(_client.VehicleType))
 });
@@ -40,12 +41,13 @@ const VehicleUpdateschema = _joi.default.object({
     name: _joi.default.string().min(3).max(50),
     model: _joi.default.string().min(3).max(50),
     img: _joi.default.string(),
-    description: _joi.default.string(),
+    description: _joi.default.string().max(20000),
     speed: _joi.default.number().min(0),
     passengerSize: _joi.default.number().min(0),
     pricePerDay: _joi.default.number().min(0),
     automatic: _joi.default.number(),
     heatedSeat: _joi.default.number(),
     gpsNavigation: _joi.default.number(),
+    userId: _joi.default.number(),
     type: _joi.default.string().allow(...Object.values(_client.VehicleType))
 });
