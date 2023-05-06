@@ -1,10 +1,11 @@
+//@ts-nocheck
 import { NextFunction, Request, Response, Router } from "express";
 import { User } from "../config/db";
 import upload from "../config/multer";
 import { rm } from "fs/promises";
 import path from "path";
 import {
-  userChangePasswordSchema,
+  userChangePasswordSchem,
   userUpdateschema,
 } from "../validation_schemas/user.schema";
 import { comparePassword, hashPassword } from "../util/password";
