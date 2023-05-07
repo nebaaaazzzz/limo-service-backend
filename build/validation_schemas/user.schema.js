@@ -23,9 +23,9 @@ function _interop_require_default(obj) {
     };
 }
 const userUpdateschema = _joi.default.object({
-    firstName: _joi.default.string().max(50),
-    lastName: _joi.default.string().max(50),
-    img: _joi.default.string().max(50),
+    firstName: _joi.default.string().max(500),
+    lastName: _joi.default.string().max(500),
+    img: _joi.default.string().max(500),
     email: _joi.default.string().email()
 });
 const userChangePasswordSchema = _joi.default.object({

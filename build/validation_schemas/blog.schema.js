@@ -23,12 +23,14 @@ function _interop_require_default(obj) {
     };
 }
 const BlogPostschema = _joi.default.object({
-    title: _joi.default.string().max(50).required(),
+    title: _joi.default.string().required(),
     img: _joi.default.string().required(),
-    content: _joi.default.string().max(1000).required()
+    userId: _joi.default.number(),
+    content: _joi.default.any().required()
 });
 const BlogUpdateschema = _joi.default.object({
-    title: _joi.default.string().max(50),
+    title: _joi.default.string(),
+    userId: _joi.default.number(),
     img: _joi.default.string(),
-    content: _joi.default.string().max(1000)
+    content: _joi.default.any()
 });

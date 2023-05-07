@@ -15,8 +15,8 @@ function _interop_require_default(obj) {
     };
 }
 const CommentPostschema = _joi.default.object({
-    fullName: _joi.default.string().min(3).max(50).required(),
-    email: _joi.default.string().required().email(),
+    fullName: _joi.default.string().required(),
+    email: _joi.default.string().email().required(),
     comment: _joi.default.string().required(),
-    vehicleId: _joi.default.number().required()
+    vehicleId: _joi.default.number()
 });

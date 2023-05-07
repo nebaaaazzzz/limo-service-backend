@@ -15,17 +15,17 @@ _export(exports, {
     getComments: function() {
         return getComments;
     },
-    getReservation: function() {
-        return getReservation;
+    getComment: function() {
+        return getComment;
     },
-    deleteReservation: function() {
-        return deleteReservation;
+    deleteComment: function() {
+        return deleteComment;
     }
 });
+const _commentschema = require("../validation_schemas/comment.schema");
 const _db = require("../config/db");
 const _error = require("../util/error");
 const _CustomeError = /*#__PURE__*/ _interop_require_default(require("../util/CustomeError"));
-const _commentschema = require("../validation_schemas/comment.schema");
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -42,44 +42,44 @@ const getComments = (0, _error.catchAsync)(async (req, res, next)=>{
     const page = Number(req.query?.page) || 1;
     const PAGE_SIZE = 10;
     const limit = Number(req.query?.limit) || PAGE_SIZE;
-    const results = await _db.Book.findMany({
+    const results = await _db.Comment.findMany({
         skip: (page - 1) * limit,
         take: limit,
         orderBy: {
             createdAt: "desc"
+        },
+        where: {
+            blogId: Number(req?.params?.blogId)
         }
     });
     res.send(results);
 });
-const getReservation = (0, _error.catchAsync)(async (req, res, next)=>{
-    const bookId = Number(req.params.id);
-    const book = await _db.Book.findUnique({
+const getComment = (0, _error.catchAsync)(async (req, res, next)=>{
+    const commentId = Number(req.params.id);
+    const comment = await _db.Comment.findUnique({
         where: {
-            id: bookId
-        },
-        include: {
-            vehicle: true
+            id: commentId
         }
     });
-    if (!book) {
-        return next(new _CustomeError.default("reservation not found", 404));
+    if (!comment) {
+        return next(new _CustomeError.default("Comment not found", 404));
     }
-    res.send(book);
+    res.send(comment);
 });
-const deleteReservation = (0, _error.catchAsync)(async (req, res, next)=>{
-    const bookId = Number(req.params.id);
-    const book = await _db.Book.findUnique({
+const deleteComment = (0, _error.catchAsync)(async (req, res, next)=>{
+    const commentID = Number(req.params.id);
+    const comment = await _db.Comment.findUnique({
         where: {
-            id: bookId
+            id: commentID
         }
     });
-    if (!book) {
-        return next(new _CustomeError.default("reservation not found", 404));
+    if (!comment) {
+        return next(new _CustomeError.default("Comment not found", 404));
     }
-    await _db.Book.delete({
+    await _db.Comment.delete({
         where: {
-            id: bookId
+            id: commentID
         }
     });
-    res.send("reservation deleted");
+    res.send("Comment deleted");
 });

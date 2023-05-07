@@ -67,5 +67,6 @@ const globalErrorHandler = (err, req, res, next)=>{
     if (err instanceof _joi.ValidationError) {
         return res.status(400).send(err.message);
     }
-    return res.status(500).send("Something went wrong");
+    // console.log();
+    return res.status(400).send(err.message);
 };

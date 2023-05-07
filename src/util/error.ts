@@ -56,5 +56,6 @@ export const globalErrorHandler = (
   if (err instanceof ValidationError) {
     return res.status(400).send(err.message);
   }
+  // console.log();
   return res.status(400).send(err.message);
 };

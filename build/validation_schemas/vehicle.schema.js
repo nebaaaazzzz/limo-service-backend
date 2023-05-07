@@ -24,10 +24,10 @@ function _interop_require_default(obj) {
     };
 }
 const VehiclePostschema = _joi.default.object({
-    name: _joi.default.string().min(3).max(50).required(),
-    model: _joi.default.string().min(3).max(50).required(),
+    name: _joi.default.string().min(3).required(),
+    model: _joi.default.string().min(3).required(),
     img: _joi.default.string().required(),
-    description: _joi.default.string().max(20000).required(),
+    description: _joi.default.string().required(),
     automatic: _joi.default.number().required(),
     heatedSeat: _joi.default.number().required(),
     gpsNavigation: _joi.default.number().required(),
@@ -38,10 +38,10 @@ const VehiclePostschema = _joi.default.object({
     type: _joi.default.string().required().allow(...Object.values(_client.VehicleType))
 });
 const VehicleUpdateschema = _joi.default.object({
-    name: _joi.default.string().min(3).max(50),
-    model: _joi.default.string().min(3).max(50),
+    name: _joi.default.string().min(3),
+    model: _joi.default.string().min(3),
     img: _joi.default.string(),
-    description: _joi.default.string().max(20000),
+    description: _joi.default.string().required(),
     speed: _joi.default.number().min(0),
     passengerSize: _joi.default.number().min(0),
     pricePerDay: _joi.default.number().min(0),
