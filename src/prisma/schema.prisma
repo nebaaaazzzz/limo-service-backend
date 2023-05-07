@@ -26,10 +26,11 @@ model Blog {
   id        Int     @id @default(autoincrement())
   title     String
   img      String
-  content   String
+  content   String @db.Text
   user    User    @relation(fields: [userId], references: [id])
   userId  Int     @default(1)
   // published Boolean @default(false)
+  blog   Comment[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -50,7 +51,7 @@ model Vehicle {
   name String
   model String
   img      String
-  description String
+  description String @db.Text
   speed Float
   automatic Int @default(1)
   heatedSeat  Int @default(1)
@@ -75,10 +76,20 @@ model Book {
   luggageCount Int
   personCount Int
   journeyDate DateTime
-  description String
+  description String @db.Text
   status ReservationStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   vehicle    Vehicle    @relation(fields: [vehicleId], references: [id])
   vehicleId  Int
+}
+model Comment{
+  id        Int     @id @default(autoincrement())
+  fullName String
+  email String
+  comment String @db.Text
+  blog    Blog    @relation(fields: [blogId], references: [id]) 
+  blogId  Int
+   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

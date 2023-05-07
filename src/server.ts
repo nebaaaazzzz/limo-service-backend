@@ -5,7 +5,6 @@ import { globalErrorHandler } from "./util/error";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
 import passportLocal from "./config/passport-local";
-import { User } from "./config/db";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import { verifyToken } from "./util/token";
