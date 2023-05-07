@@ -58,5 +58,5 @@ export const globalErrorHandler = (
     return res.status(400).send(err.message);
   }
   console.log(err.message);
-  return res.status(500).send("Something went wrong");
+  return res.status(500).send(err.message);
 };
