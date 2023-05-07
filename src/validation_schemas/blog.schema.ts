@@ -3,15 +3,14 @@ const BlogPostschema = Joi.object({
   title: Joi.string().required(),
   img: Joi.string().required(),
   userId: Joi.number(),
-  content: Joi.string().required(),
+  content: Joi.any().required(),
   // published: Joi.boolean().required(),
 });
 const BlogUpdateschema = Joi.object({
   title: Joi.string(),
   userId: Joi.number(),
-
   img: Joi.string(),
-  content: Joi.string(),
+  content: Joi.any(),
   // published: Joi.boolean(),
 });
 
