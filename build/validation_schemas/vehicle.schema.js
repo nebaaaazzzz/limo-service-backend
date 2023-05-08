@@ -41,7 +41,7 @@ const VehicleUpdateschema = _joi.default.object({
     name: _joi.default.string().min(3),
     model: _joi.default.string().min(3),
     img: _joi.default.string(),
-    description: _joi.default.string().required(),
+    description: _joi.default.string(),
     speed: _joi.default.number().min(0),
     passengerSize: _joi.default.number().min(0),
     pricePerDay: _joi.default.number().min(0),

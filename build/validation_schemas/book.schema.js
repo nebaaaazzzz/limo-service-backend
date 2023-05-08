@@ -50,6 +50,6 @@ const BookUpdateschema = _joi.default.object({
     luggageCount: _joi.default.number().min(0).integer(),
     personCount: _joi.default.number().min(0).integer(),
     journeyDate: _joi.default.date(),
-    description: _joi.default.string().required(),
+    description: _joi.default.string(),
     vehicleId: _joi.default.number()
 });

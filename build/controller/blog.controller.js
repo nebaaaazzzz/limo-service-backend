@@ -33,6 +33,7 @@ const _db = require("../config/db");
 const _path = /*#__PURE__*/ _interop_require_default(require("path"));
 const _error = require("../util/error");
 const _CustomeError = /*#__PURE__*/ _interop_require_default(require("../util/CustomeError"));
+const _cloudinary = /*#__PURE__*/ _interop_require_default(require("../config/cloudinary"));
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -47,11 +48,12 @@ const postBlog = [
                 ...req.body,
                 img: req.file?.filename
             });
+            const publicId = await (0, _cloudinary.default)(_path.default.join(__dirname, "../uploads/", req.file?.filename));
             const blog = await _db.Blog.create({
                 data: {
                     userId: req.user?.id,
                     ...value,
-                    img: req.file?.filename
+                    img: publicId
                 }
             });
             return res.send(blog);
@@ -128,7 +130,8 @@ const updateBlog = [
             }
             const body = req.body;
             if (req.file) {
-                body["img"] = req.file?.filename;
+                const publicId = await (0, _cloudinary.default)(_path.default.join(__dirname, "../uploads/", req.file?.filename));
+                body["img"] = publicId;
             }
             const value = await _blogschema.BlogUpdateschema.validateAsync(body);
             const updatedBlog = await _db.Blog.update({

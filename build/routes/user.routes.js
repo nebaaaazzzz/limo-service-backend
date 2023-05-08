@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -15,6 +16,7 @@ const _promises = require("fs/promises");
 const _path = /*#__PURE__*/ _interop_require_default(require("path"));
 const _userschema = require("../validation_schemas/user.schema");
 const _password = require("../util/password");
+const _cloudinary = /*#__PURE__*/ _interop_require_default(require("../config/cloudinary"));
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -45,7 +47,8 @@ router.patch("/update-profile", [
             }
             const body = req.body;
             if (req.file) {
-                body["img"] = req.file?.filename;
+                const publicId = await (0, _cloudinary.default)(_path.default.join(__dirname, "../uploads/", req.file?.filename));
+                body["img"] = publicId;
             }
             const value = await _userschema.userUpdateschema.validateAsync(body);
             const updatedUser = await _db.User.update({
