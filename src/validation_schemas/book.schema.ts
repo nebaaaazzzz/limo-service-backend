@@ -24,7 +24,7 @@ const BookUpdateschema = Joi.object({
   luggageCount: Joi.number().min(0).integer(),
   personCount: Joi.number().min(0).integer(),
   journeyDate: Joi.date(),
-  description: Joi.string().required(),
+  description: Joi.string(),
   vehicleId: Joi.number(),
 });
 
