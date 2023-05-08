@@ -22,7 +22,7 @@ const VehicleUpdateschema = Joi.object({
   userId: Joi.number(),
 
   img: Joi.string(),
-  description: Joi.string().required(),
+  description: Joi.string(),
   speed: Joi.number().min(0),
   passengerSize: Joi.number().min(0),
   pricePerDay: Joi.number().min(0),
