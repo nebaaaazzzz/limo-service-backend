@@ -10,6 +10,7 @@ import { Blog } from "../config/db";
 import path from "path";
 import { catchAsync } from "../util/error";
 import CustomError from "../util/CustomeError";
+import uploadImageToCloudinary from "../config/cloudinary";
 
 const uploads = upload.single("img");
 export const postBlog = [
@@ -20,11 +21,14 @@ export const postBlog = [
         ...req.body,
         img: req.file?.filename,
       });
+      const publicId = await uploadImageToCloudinary(
+        path.join(__dirname, "../uploads/", req.file?.filename)
+      );
       const blog = await Blog.create({
         data: {
           userId: req.user?.id,
           ...value,
-          img: req.file?.filename,
+          img: publicId,
         },
       });
       return res.send(blog);
@@ -109,7 +113,10 @@ export const updateBlog = [
       }
       const body = req.body;
       if (req.file) {
-        body["img"] = req.file?.filename;
+        const publicId = await uploadImageToCloudinary(
+          path.join(__dirname, "../uploads/", req.file?.filename)
+        );
+        body["img"] = publicId;
       }
       const value = await BlogUpdateschema.validateAsync(body);
       const updatedBlog = await Blog.update({

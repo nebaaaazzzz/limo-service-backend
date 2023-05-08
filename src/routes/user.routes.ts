@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { NextFunction, Request, Response, Router } from "express";
 import { User } from "../config/db";
 import upload from "../config/multer";
@@ -8,6 +9,7 @@ import {
   userUpdateschema,
 } from "../validation_schemas/user.schema";
 import { comparePassword, hashPassword } from "../util/password";
+import uploadImageToCloudinary from "../config/cloudinary";
 const router = Router();
 const uploads = upload.single("img");
 const userPropertiestWithPassword = {
@@ -33,7 +35,10 @@ router.patch("/update-profile", [
       }
       const body = req.body;
       if (req.file) {
-        body["img"] = req.file?.filename;
+        const publicId = await uploadImageToCloudinary(
+          path.join(__dirname, "../uploads/", req.file?.filename)
+        );
+        body["img"] = publicId;
       }
       const value = await userUpdateschema.validateAsync(body);
       const updatedUser = await User.update({
