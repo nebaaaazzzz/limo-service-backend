@@ -24,8 +24,8 @@ function _interop_require_default(obj) {
     };
 }
 const VehiclePostschema = _joi.default.object({
-    name: _joi.default.string().min(3).required(),
-    model: _joi.default.string().min(3).required(),
+    name: _joi.default.string().required(),
+    model: _joi.default.string().required(),
     img: _joi.default.string().required(),
     description: _joi.default.string().required(),
     automatic: _joi.default.number().required(),
@@ -38,8 +38,8 @@ const VehiclePostschema = _joi.default.object({
     type: _joi.default.string().required().allow(...Object.values(_client.VehicleType))
 });
 const VehicleUpdateschema = _joi.default.object({
-    name: _joi.default.string().min(3),
-    model: _joi.default.string().min(3),
+    name: _joi.default.string(),
+    model: _joi.default.string(),
     img: _joi.default.string(),
     description: _joi.default.string(),
     speed: _joi.default.number().min(0),
