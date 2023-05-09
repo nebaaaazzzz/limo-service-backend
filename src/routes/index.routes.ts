@@ -33,7 +33,7 @@ router.get("/stat", async (req, res) => {
   });
   const numberOfBlogs = await Blog.count();
   const numberOfVehicle = await Vehicle.count();
-  const numberOfNewReservation = await Vehicle.count({
+  const numberOfNewReservation = await Book.count({
     where: {
       createdAt: {
         gte: new Date(new Date().getTime() - 12 * 60 * 60 * 1000),
