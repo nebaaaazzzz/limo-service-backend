@@ -11,6 +11,7 @@ const _cors = /*#__PURE__*/ _interop_require_default(require("cors"));
 const _passportlocal = /*#__PURE__*/ _interop_require_default(require("./config/passport-local"));
 const _cookieparser = /*#__PURE__*/ _interop_require_default(require("cookie-parser"));
 const _passport = /*#__PURE__*/ _interop_require_default(require("passport"));
+const _db = require("./config/db");
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -18,20 +19,21 @@ function _interop_require_default(obj) {
 }
 const PORT = process.env.PORT || 3030;
 (async ()=>{
-// try {
-//   await User.create({
-//     data: {
-//       email: "neba@gmail.com",
-//       lastName: "Daniel",
-//       firstName: "Nebiyu",
-//       // password: "123456",
-//       password:
-//         "$2a$10$Bl4Y5US/Gh2bOn6GchivH.GUjKcbEp.h9q8gHaEenpoJ1GMDgLlmi",
-//     },
-//   });
-// } catch (e: any) {
-//   console.log(e.message);
-// }
+    try {
+        await _db.User.upsert({
+            where: {},
+            update: {},
+            create: {
+                email: "neba@gmail.com",
+                lastName: "Daniel",
+                firstName: "Nebiyu",
+                // password: "123456",
+                password: "$2a$10$Bl4Y5US/Gh2bOn6GchivH.GUjKcbEp.h9q8gHaEenpoJ1GMDgLlmi"
+            }
+        });
+    } catch (e) {
+        console.log(e.message);
+    }
 })();
 const app = (0, _express.default)();
 app.use(_express.default.static(_path.default.join(__dirname, "uploads")));
