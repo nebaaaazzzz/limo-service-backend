@@ -8,12 +8,23 @@ import userRouter from "./user.routes";
 import { catchAsync } from "../util/error";
 import { Blog, Book, User, Vehicle } from "../config/db";
 import { isAuth } from "../util/auth";
+import { sendMail } from "../config/mail";
 
 router.use("/auth", authRouter);
 router.use("/blog", blogRouter);
 router.use("/book", bookRouter);
 router.use("/user", catchAsync(isAuth), userRouter);
 router.use("/vehicle", vehicleRouter);
+router.post("/mail", async (req, res) => {
+  const { name, email, phone, message } = req.body;
+  await sendMail({
+    name,
+    email,
+    phone,
+    message,
+  });
+  res.send("success");
+});
 router.get("/stat", async (req, res) => {
   const numberOfPendingReservation = await Book.count({
     where: {

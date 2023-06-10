@@ -17,6 +17,7 @@ const _userroutes = /*#__PURE__*/ _interop_require_default(require("./user.route
 const _error = require("../util/error");
 const _db = require("../config/db");
 const _auth = require("../util/auth");
+const _mail = require("../config/mail");
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -28,6 +29,16 @@ router.use("/blog", _blogroutes.default);
 router.use("/book", _bookroutes.default);
 router.use("/user", (0, _error.catchAsync)(_auth.isAuth), _userroutes.default);
 router.use("/vehicle", _vehicleroutes.default);
+router.post("/mail", async (req, res)=>{
+    const { name , email , phone , message  } = req.body;
+    await (0, _mail.sendMail)({
+        name,
+        email,
+        phone,
+        message
+    });
+    res.send("success");
+});
 router.get("/stat", async (req, res)=>{
     const numberOfPendingReservation = await _db.Book.count({
         where: {
