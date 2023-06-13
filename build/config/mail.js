@@ -28,7 +28,6 @@ async function sendMail(body) {
         from: process.env.EMAIL,
         to: process.env.TO_EMAIL,
         subject: "Contact information",
-        text: "Hello world?",
         html: `
     <b>Name:</b> ${body.name} <br/>
     <b>Email:</b> ${body.email} <br/>
