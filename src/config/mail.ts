@@ -19,7 +19,6 @@ export async function sendMail(body: {
     from: process.env.EMAIL, // sender address
     to: process.env.TO_EMAIL, // list of receivers
     subject: "Contact information", // Subject line
-    text: "Hello world?", // plain text body
     html: `
     <b>Name:</b> ${body.name} <br/>
     <b>Email:</b> ${body.email} <br/>
