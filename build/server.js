@@ -21,9 +21,7 @@ const app = (0, _express.default)();
 app.use(_express.default.static(_path.default.join(__dirname, "uploads")));
 app.use(_express.default.static(_path.default.join(__dirname, "static")));
 app.use(_express.default.json());
-app.get("/", function(req, res) {
-    res.sendFile(_path.default.join(__dirname + "/static/index.html"));
-});
+
 app.use((0, _cors.default)({
     credentials: true,
     origin: [
@@ -34,6 +32,9 @@ app.use((0, _cors.default)({
 app.use((0, _cookieparser.default)());
 app.use(_passport.default.initialize({}));
 app.use(_indexroutes.default);
+app.get("*", function(req, res) {
+    res.sendFile(_path.default.join(__dirname + "/static/index.html"));
+});
 app.use((0, _expressratelimit.default)());
 app.listen(PORT, ()=>{
     console.log("Server started on port " + PORT);
