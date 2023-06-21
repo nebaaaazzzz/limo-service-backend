@@ -15,9 +15,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "static")));
 app.use(express.json());
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname + "/static/index.html"));
-});
+
 app.use(
   cors({
     credentials: true,
@@ -30,6 +28,9 @@ app.use(
 app.use(cookieParser());
 app.use(passport.initialize({}));
 app.use(router);
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname + "/static/index.html"));
+});
 app.use(rateLimit());
 app.listen(PORT, () => {
   console.log("Server started on port " + PORT);
