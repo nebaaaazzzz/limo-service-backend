@@ -28,7 +28,7 @@ app.use(
 app.use(cookieParser());
 app.use(passport.initialize({}));
 app.use(router);
-app.get("/", function (req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname + "/static/index.html"));
 });
 app.use(rateLimit());
