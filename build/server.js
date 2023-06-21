@@ -11,17 +11,18 @@ const _cors = /*#__PURE__*/ _interop_require_default(require("cors"));
 const _passportlocal = /*#__PURE__*/ _interop_require_default(require("./config/passport-local"));
 const _cookieparser = /*#__PURE__*/ _interop_require_default(require("cookie-parser"));
 const _passport = /*#__PURE__*/ _interop_require_default(require("passport"));
-const _db = require("./config/db");
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
     };
 }
 const PORT = process.env.PORT || 3030;
-
 const app = (0, _express.default)();
 app.use(_express.default.static(_path.default.join(__dirname, "uploads")));
 app.use(_express.default.json());
+app.get("/", function(req, res) {
+    res.sendFile(_path.default.join(__dirname + "/static/index.html"));
+});
 app.use((0, _cors.default)({
     credentials: true,
     origin: [

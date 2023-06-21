@@ -11,10 +11,12 @@ import { verifyToken } from "./util/token";
 import { User } from "./config/db";
 const PORT = process.env.PORT || 3030;
 
-
 const app = express();
 app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname + "/static/index.html"));
+});
 app.use(
   cors({
     credentials: true,
