@@ -26,7 +26,11 @@ app.use((0, _cors.default)({
     credentials: true,
     origin: [
         "https://limo-admin.onrender.com",
-        "https://seattle-limo.onrender.com"
+        "https://seattle-limo.onrender.com",
+        "http://localhost:3000",
+        "127.0.0.1:3000",
+        "http://localhost",
+        "127.0.0.1"
     ]
 }));
 app.use((0, _cookieparser.default)());
