@@ -29,6 +29,7 @@ app.use((0, _cors.default)({
         "https://seattle-limo.onrender.com",
         "http://localhost:3000",
         "127.0.0.1:3000",
+        "https://seattle-limos.onrender.com",
         "http://localhost",
         "127.0.0.1"
     ]
