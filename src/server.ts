@@ -23,6 +23,7 @@ app.use(
       "https://limo-admin.onrender.com",
       "https://seattle-limo.onrender.com",
       "http://localhost:3000",
+      "http://localhost:5173",
       "127.0.0.1:3000",
       "https://seattle-limos.onrender.com" ,
       "http://localhost",
