@@ -83,7 +83,7 @@ const getBlogs = (0, _error.catchAsync)(async (req, res, next)=>{
     res.send(results);
 });
 const getBlog = (0, _error.catchAsync)(async (req, res, next)=>{
-    const blogId = Number(req.params.id);
+    const blogId = req.params.id;
     const blog = await _db.Blog.findUnique({
         include: {
             user: true
@@ -98,7 +98,7 @@ const getBlog = (0, _error.catchAsync)(async (req, res, next)=>{
     res.send(blog);
 });
 const deleteBlog = (0, _error.catchAsync)(async (req, res, next)=>{
-    const blogId = Number(req.params.id);
+    const blogId = req.params.id;
     const blog = await _db.Blog.findUnique({
         where: {
             id: blogId
@@ -119,7 +119,7 @@ const updateBlog = [
     uploads,
     async (req, res, next)=>{
         try {
-            const blogId = Number(req.params.id);
+            const blogId = req.params.id;
             const blog = await _db.Blog.findUnique({
                 where: {
                     id: blogId

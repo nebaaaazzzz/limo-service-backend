@@ -83,7 +83,7 @@ const getVehicles = (0, _error.catchAsync)(async (req, res, next)=>{
     res.send(results);
 });
 const getVehicle = (0, _error.catchAsync)(async (req, res, next)=>{
-    const carId = Number(req.params.id);
+    const carId = req.params.id;
     const car = await _db.Vehicle.findUnique({
         where: {
             id: carId
@@ -95,7 +95,7 @@ const getVehicle = (0, _error.catchAsync)(async (req, res, next)=>{
     res.send(car);
 });
 const deleteVehicle = (0, _error.catchAsync)(async (req, res, next)=>{
-    const carId = Number(req.params.id);
+    const carId = req.params.id;
     const car = await _db.Vehicle.findUnique({
         where: {
             id: carId
@@ -115,7 +115,7 @@ const updateVehicle = [
     uploads,
     async (req, res, next)=>{
         try {
-            const carId = Number(req.params.id);
+            const carId = req.params.id;
             const car = await _db.Vehicle.findUnique({
                 where: {
                     id: carId

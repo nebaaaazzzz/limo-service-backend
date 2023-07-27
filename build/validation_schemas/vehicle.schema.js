@@ -33,7 +33,7 @@ const VehiclePostschema = _joi.default.object({
     gpsNavigation: _joi.default.number().required(),
     speed: _joi.default.number().required().min(0),
     passengerSize: _joi.default.number().required().min(0),
-    userId: _joi.default.number().required(),
+    userId: _joi.default.string().required(),
     pricePerDay: _joi.default.number().required().min(0),
     type: _joi.default.string().required().allow(...Object.values(_client.VehicleType))
 });
@@ -48,6 +48,6 @@ const VehicleUpdateschema = _joi.default.object({
     automatic: _joi.default.number(),
     heatedSeat: _joi.default.number(),
     gpsNavigation: _joi.default.number(),
-    userId: _joi.default.number(),
+    userId: _joi.default.string(),
     type: _joi.default.string().allow(...Object.values(_client.VehicleType))
 });

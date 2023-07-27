@@ -33,7 +33,7 @@ export const getReservations = catchAsync(
 );
 export const getReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const bookId = Number(req.params.id);
+    const bookId = req.params.id;
     const book = await Book.findUnique({
       where: {
         id: bookId,
@@ -50,7 +50,7 @@ export const getReservation = catchAsync(
 );
 export const deleteReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const bookId = Number(req.params.id);
+    const bookId = req.params.id;
     const book = await Book.findUnique({
       where: {
         id: bookId,
@@ -70,7 +70,7 @@ export const deleteReservation = catchAsync(
 
 export const updateReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const bookId = Number(req.params.id);
+    const bookId = req.params.id;
     const book = await Book.findUnique({
       where: {
         id: bookId,

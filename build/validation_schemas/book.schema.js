@@ -33,7 +33,7 @@ const BookPostschema = _joi.default.object({
     personCount: _joi.default.number().required().min(0).integer(),
     journeyDate: _joi.default.date().required(),
     description: _joi.default.string().required(),
-    vehicleId: _joi.default.number().required()
+    vehicleId: _joi.default.string().required()
 });
 const BookUpdateschema = _joi.default.object({
     firstName: _joi.default.string().min(3).max(500),
@@ -51,5 +51,5 @@ const BookUpdateschema = _joi.default.object({
     personCount: _joi.default.number().min(0).integer(),
     journeyDate: _joi.default.date(),
     description: _joi.default.string(),
-    vehicleId: _joi.default.number()
+    vehicleId: _joi.default.string()
 });

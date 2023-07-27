@@ -49,13 +49,13 @@ const getComments = (0, _error.catchAsync)(async (req, res, next)=>{
             createdAt: "desc"
         },
         where: {
-            blogId: Number(req?.params?.blogId)
+            blogId: req?.params?.blogId
         }
     });
     res.send(results);
 });
 const getComment = (0, _error.catchAsync)(async (req, res, next)=>{
-    const commentId = Number(req.params.id);
+    const commentId = req.params.id;
     const comment = await _db.Comment.findUnique({
         where: {
             id: commentId
@@ -67,7 +67,7 @@ const getComment = (0, _error.catchAsync)(async (req, res, next)=>{
     res.send(comment);
 });
 const deleteComment = (0, _error.catchAsync)(async (req, res, next)=>{
-    const commentID = Number(req.params.id);
+    const commentID = req.params.id;
     const comment = await _db.Comment.findUnique({
         where: {
             id: commentID

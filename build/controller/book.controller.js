@@ -55,7 +55,7 @@ const getReservations = (0, _error.catchAsync)(async (req, res, next)=>{
     res.send(results);
 });
 const getReservation = (0, _error.catchAsync)(async (req, res, next)=>{
-    const bookId = Number(req.params.id);
+    const bookId = req.params.id;
     const book = await _db.Book.findUnique({
         where: {
             id: bookId
@@ -70,7 +70,7 @@ const getReservation = (0, _error.catchAsync)(async (req, res, next)=>{
     res.send(book);
 });
 const deleteReservation = (0, _error.catchAsync)(async (req, res, next)=>{
-    const bookId = Number(req.params.id);
+    const bookId = req.params.id;
     const book = await _db.Book.findUnique({
         where: {
             id: bookId
@@ -87,7 +87,7 @@ const deleteReservation = (0, _error.catchAsync)(async (req, res, next)=>{
     res.send("reservation deleted");
 });
 const updateReservation = (0, _error.catchAsync)(async (req, res, next)=>{
-    const bookId = Number(req.params.id);
+    const bookId = req.params.id;
     const book = await _db.Book.findUnique({
         where: {
             id: bookId

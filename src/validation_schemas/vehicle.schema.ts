@@ -10,7 +10,7 @@ const VehiclePostschema = Joi.object({
   gpsNavigation: Joi.number().required(),
   speed: Joi.number().required().min(0),
   passengerSize: Joi.number().required().min(0),
-  userId: Joi.number().required(),
+  userId: Joi.string().required(),
   pricePerDay: Joi.number().required().min(0),
   type: Joi.string()
     .required()
@@ -27,7 +27,7 @@ const VehicleUpdateschema = Joi.object({
   automatic: Joi.number(),
   heatedSeat: Joi.number(),
   gpsNavigation: Joi.number(),
-  userId: Joi.number(),
+  userId: Joi.string(),
   type: Joi.string().allow(...Object.values(VehicleType)),
 });
 

@@ -21,13 +21,13 @@ const app = (0, _express.default)();
 app.use(_express.default.static(_path.default.join(__dirname, "uploads")));
 app.use(_express.default.static(_path.default.join(__dirname, "static")));
 app.use(_express.default.json());
-
 app.use((0, _cors.default)({
     credentials: true,
     origin: [
         "https://limo-admin.onrender.com",
         "https://seattle-limo.onrender.com",
         "http://localhost:3000",
+        "http://localhost:5173",
         "127.0.0.1:3000",
         "https://seattle-limos.onrender.com",
         "http://localhost",

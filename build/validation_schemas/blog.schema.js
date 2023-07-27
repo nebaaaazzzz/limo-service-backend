@@ -25,12 +25,12 @@ function _interop_require_default(obj) {
 const BlogPostschema = _joi.default.object({
     title: _joi.default.string().required(),
     img: _joi.default.string().required(),
-    userId: _joi.default.number(),
+    userId: _joi.default.string(),
     content: _joi.default.any().required()
 });
 const BlogUpdateschema = _joi.default.object({
     title: _joi.default.string(),
-    userId: _joi.default.number(),
+    userId: _joi.default.string(),
     img: _joi.default.string(),
     content: _joi.default.any()
 });

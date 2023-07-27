@@ -18,5 +18,5 @@ const CommentPostschema = _joi.default.object({
     fullName: _joi.default.string().required(),
     email: _joi.default.string().email().required(),
     comment: _joi.default.string().required(),
-    vehicleId: _joi.default.number()
+    vehicleId: _joi.default.string()
 });

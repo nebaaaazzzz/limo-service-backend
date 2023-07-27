@@ -61,7 +61,7 @@ export const getBlogs = catchAsync(
 );
 export const getBlog = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const blogId = Number(req.params.id);
+    const blogId = req.params.id;
     const blog = await Blog.findUnique({
       include: {
         user: true,
@@ -79,7 +79,7 @@ export const getBlog = catchAsync(
 
 export const deleteBlog = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const blogId = Number(req.params.id);
+    const blogId = req.params.id;
     const blog = await Blog.findUnique({
       where: {
         id: blogId,
@@ -102,7 +102,7 @@ export const updateBlog = [
   uploads,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const blogId = Number(req.params.id);
+      const blogId = req.params.id;
       const blog = await Blog.findUnique({
         where: {
           id: blogId,
