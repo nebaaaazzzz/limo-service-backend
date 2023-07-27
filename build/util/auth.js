@@ -14,7 +14,7 @@ async function isAuth(req, res, next) {
     const decodedToken = await (0, _token.verifyToken)(req.cookies.token);
     const user = await _db.User.findUniqueOrThrow({
         where: {
-            id: Number(decodedToken.sub)
+            id: decodedToken.sub
         },
         select: {
             email: true,
