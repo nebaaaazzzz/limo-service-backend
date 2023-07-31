@@ -30,7 +30,7 @@ app.use((0, _cors.default)({
         "http://localhost:5173",
         "127.0.0.1:3000",
         "https://seattle-limos.onrender.com",
-        "https://seattle-skyline-limo.netlify.app/",
+        "https://seattle-skyline-limo.netlify.app",
         "http://localhost",
         "127.0.0.1"
     ]
