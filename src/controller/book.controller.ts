@@ -7,11 +7,37 @@ import { Book } from "../config/db";
 import { catchAsync } from "../util/error";
 import CustomError from "../util/CustomeError";
 
+import nodemailer from "nodemailer";
+import { COMFIRMAION_EMAIL } from "../config/mail";
+
 export const postReservation = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const value = await BookPostschema.validateAsync(req.body);
     const book = await Book.create({
       data: value,
+      include: {
+        vehicle: true,
+      },
+    });
+    if (!book)
+      return next(new CustomError("reservation not created", 500));
+    // send email to user that tells him that his reservation is created and we will contact him soon
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL, // generated ethereal user
+        pass: process.env.EMAIL_PASSWORD, //
+      },
+    });
+
+    // lets define our html template
+    await transporter.sendMail({
+      from: process.env.EMAIL, // sender address
+      to: process.env.TO_EMAIL, // list of receivers
+      subject: "Contact information", // Subject line
+      html: COMFIRMAION_EMAIL(book), // html body
     });
     return res.status(201).send(book);
   }
