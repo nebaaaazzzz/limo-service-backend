@@ -35,7 +35,7 @@ export const postReservation = catchAsync(
     // lets define our html template
     await transporter.sendMail({
       from: process.env.EMAIL, // sender address
-      to: process.env.TO_EMAIL, // list of receivers
+      to: book.email, // list of receivers
       subject: "Limousine Service Reservation Confirmation & Details", // Subject line
       html: COMFIRMAION_EMAIL(book), // html body
     });
